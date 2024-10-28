@@ -1,6 +1,5 @@
-﻿using System;
-using MonomiPark.SlimeRancher.DataModel;
-using SRML.SR.SaveSystem.Data;
+﻿using SRML.SR.SaveSystem.Data;
+using System;
 
 namespace SRML.SR.SaveSystem.Utils
 {
@@ -10,7 +9,7 @@ namespace SRML.SR.SaveSystem.Utils
         {
             return SRModLoader.GetModForAssembly(p.GetType().Assembly);
         }
-        
+
         public static SRMod GetModForParticipant(ExtendedData.TransformableParticipant p)
         {
             return SRModLoader.GetModForAssembly(p.GetType().Assembly);
@@ -43,7 +42,7 @@ namespace SRML.SR.SaveSystem.Utils
 
         public static CompoundDataPiece GetPieceForParticipantFromRoot(ExtendedData.Participant p, CompoundDataPiece piece)
         {
-            return GetPieceForParticipantFromRoot(GetModForParticipant(p).ModInfo.Id,p, piece);
+            return GetPieceForParticipantFromRoot(GetModForParticipant(p).ModInfo.Id, p, piece);
         }
 
         public static CompoundDataPiece GetPieceForParticipantFromRoot(string modid, ExtendedData.Participant p, CompoundDataPiece piece)
@@ -53,7 +52,7 @@ namespace SRML.SR.SaveSystem.Utils
 
         public static CompoundDataPiece GetPieceForParticipant<T>(CompoundDataPiece piece) where T : ExtendedData.Participant
         {
-            return GetPieceForParticipant(typeof(T),piece);
+            return GetPieceForParticipant(typeof(T), piece);
         }
 
         public static CompoundDataPiece GetPieceForParticipant(ExtendedData.TransformableParticipant p, CompoundDataPiece piece)
@@ -63,7 +62,7 @@ namespace SRML.SR.SaveSystem.Utils
 
         public static CompoundDataPiece GetPieceForParticipantFromRoot(ExtendedData.TransformableParticipant p, CompoundDataPiece piece)
         {
-            return GetPieceForParticipantFromRoot(GetModForParticipant(p).ModInfo.Id,p, piece);
+            return GetPieceForParticipantFromRoot(GetModForParticipant(p).ModInfo.Id, p, piece);
         }
 
         public static CompoundDataPiece GetPieceForParticipantFromRoot(string modid, ExtendedData.TransformableParticipant p, CompoundDataPiece piece)

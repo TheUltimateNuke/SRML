@@ -200,7 +200,7 @@ public static class TransformExtensions
             yield return current;
     }
 
-    public static List<T> ChildComponentsToList<T>(this Transform t) where T : Component => ((IEnumerable<T>)t.GetComponentsInChildren<T>()).ToList<T>();
+    public static List<T> ChildComponentsToList<T>(this Transform t) where T : Component => t.GetComponentsInChildren<T>().ToList<T>();
 
     public static bool IsDescendant(this Transform potentialAncestor, Transform descendant)
     {

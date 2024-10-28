@@ -1,9 +1,7 @@
 ﻿using HarmonyLib;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 
 namespace SRML.SR.Patches
 {
@@ -15,7 +13,7 @@ namespace SRML.SR.Patches
         {
             StackTrace trace = new StackTrace(1);
             Type type = null;
-            foreach(var v in trace.GetFrames())
+            foreach (var v in trace.GetFrames())
             {
                 var candidateType = v.GetMethod().DeclaringType;
                 if (typeof(BaseUI).IsAssignableFrom(candidateType))

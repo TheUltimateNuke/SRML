@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SRML.Editor;
+﻿using System.Collections.Generic;
 
 namespace SRML.Editor
 {
     internal static class ReplacerCache
     {
-        static Dictionary<IFieldReplacer, ResolvedReplacer> replacers = new Dictionary<IFieldReplacer, ResolvedReplacer>();
+        static readonly Dictionary<IFieldReplacer, ResolvedReplacer> replacers = new Dictionary<IFieldReplacer, ResolvedReplacer>();
 
         public static ResolvedReplacer GetReplacer(IFieldReplacer replacer)
         {
             if (replacers.TryGetValue(replacer, out var resolved)) return resolved;
             var newreplacer = ResolvedReplacer.Resolve(replacer);
-            replacers.Add(replacer,newreplacer);
+            replacers.Add(replacer, newreplacer);
             return newreplacer;
         }
 

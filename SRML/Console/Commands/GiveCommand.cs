@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using UnityEngine;
 
 namespace SRML.Console.Commands
 {
@@ -38,14 +36,14 @@ namespace SRML.Console.Commands
             if (args.Length != 2 || !Int32.TryParse(args[1], out count)) count = 1;
 
             for (int i = 0; i < count; i++) SceneContext.Instance.PlayerState?.Ammo.MaybeAddToSlot(id, null);
-            return true; 
+            return true;
         }
 
         public override List<string> GetAutoComplete(int argIndex, string argText)
         {
-            if(argIndex == 0)
+            if (argIndex == 0)
             {
-                return SceneContext.Instance.PlayerState?.GetPotentialAmmo().Select(x=>x.ToString()).ToList();
+                return SceneContext.Instance.PlayerState?.GetPotentialAmmo().Select(x => x.ToString()).ToList();
             }
             return base.GetAutoComplete(argIndex, argText);
         }

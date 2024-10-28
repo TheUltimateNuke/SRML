@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SRML.SR
 {
@@ -43,7 +42,7 @@ namespace SRML.SR
             /// </summary>
             /// <param name="onReadCallback">The callback</param>
             /// <returns></returns>
-            public MailEntry SetReadCallback(Action<MailDirector,MailDirector.Mail> onReadCallback)
+            public MailEntry SetReadCallback(Action<MailDirector, MailDirector.Mail> onReadCallback)
             {
                 this.onReadCallback = onReadCallback;
                 return this;

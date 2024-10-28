@@ -1,7 +1,6 @@
-﻿using UnityEngine;
-using TMPro;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
-using System.Reflection;
 
 namespace SRML.SR.UI
 {

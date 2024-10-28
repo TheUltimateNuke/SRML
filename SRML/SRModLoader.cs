@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-using Newtonsoft.Json;
-using UnityEngine;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using SRML.Utils;
-using Exception = System.Exception;
-using SRML.Utils.Enum;
-using System.Collections.ObjectModel;
-using SRML.Config;
-using SRML.SR;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SRML.Config;
+using SRML.Utils;
+using SRML.Utils.Enum;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using Exception = System.Exception;
 
 namespace SRML
 {
@@ -21,12 +16,12 @@ namespace SRML
     {
         internal const string ModJson = "modinfo.json";
 
-        internal static readonly Dictionary<string,SRMod> Mods = new Dictionary<string, SRMod>();
+        internal static readonly Dictionary<string, SRMod> Mods = new Dictionary<string, SRMod>();
 
         public static IEnumerable<SRModInfo> LoadedMods => Mods.Select(x => x.Value.ModInfo);
 
         private static readonly List<string> loadOrder = new List<string>();
-        
+
         public static LoadingStep CurrentLoadingStep { get; private set; }
 
         /// <summary>
@@ -43,24 +38,24 @@ namespace SRML
                 var mod = ProtoMod.ParseFromJson(jsonFile);
                 if (!foundMods.Add(mod))
                 {
-                    throw new Exception("Found mod with duplicate id '"+mod.id+"' in "+jsonFile+"!");
+                    throw new Exception("Found mod with duplicate id '" + mod.id + "' in " + jsonFile + "!");
                 }
             }
             // process mods with embedded modinfo.jsons
             foreach (var dllFile in Directory.GetFiles(FileSystem.ModPath, "*.dll", SearchOption.AllDirectories))
             {
-                if(!ProtoMod.TryParseFromDLL(dllFile,out var mod)||mod.id==null) continue;
+                if (!ProtoMod.TryParseFromDLL(dllFile, out var mod) || mod.id == null) continue;
                 if (!foundMods.Add(mod))
                 {
                     throw new Exception("Found mod with duplicate id '" + mod.id + "' in " + dllFile + "!");
                 }
             }
 
-            
+
             // Make sure all dependencies are in order, otherwise throw an exception from checkdependencies
             DependencyChecker.CheckDependencies(foundMods);
-            
-            DependencyChecker.CalculateLoadOrder(foundMods,loadOrder);
+
+            DependencyChecker.CalculateLoadOrder(foundMods, loadOrder);
 
             // Start loading the assemblies
             DiscoverAndLoadAssemblies(foundMods);
@@ -82,7 +77,7 @@ namespace SRML
         /// <returns>The associated ModInfo</returns>
         public static SRModInfo GetModInfo(string modid) => Mods.TryGetValue(modid, out var mod) ? mod.ModInfo : null;
 
-        internal static bool TryGetEntryType(Assembly assembly,out Type entryType)
+        internal static bool TryGetEntryType(Assembly assembly, out Type entryType)
         {
             entryType = assembly.ManifestModule.GetTypes()
                 .FirstOrDefault((x) => (typeof(IModEntryPoint).IsAssignableFrom(x)));
@@ -94,11 +89,11 @@ namespace SRML
             HashSet<AssemblyInfo> foundAssemblies = new HashSet<AssemblyInfo>();
             foreach (var mod in protomods)
             {
-                foreach (var file in Directory.GetFiles(mod.path,"*.dll", SearchOption.AllDirectories))
+                foreach (var file in Directory.GetFiles(mod.path, "*.dll", SearchOption.AllDirectories))
                 {
                     foundAssemblies.Add(new AssemblyInfo(AssemblyName.GetAssemblyName(Path.GetFullPath(file)),
                         Path.GetFullPath(file), mod));
-                   
+
                 }
 
             }
@@ -109,17 +104,17 @@ namespace SRML
                 return foundAssemblies.FirstOrDefault((x) => x.DoesMatch(name))?.LoadAssembly();
             }
 
-            
+
 
             AppDomain.CurrentDomain.AssemblyResolve += FindAssembly;
             try
             {
                 foreach (var mod in protomods)
                 {
-                    foreach (var assembly in foundAssemblies.Where((x)=>x.mod==mod))
+                    foreach (var assembly in foundAssemblies.Where((x) => x.mod == mod))
                     {
                         var a = assembly.LoadAssembly();
-                        if (!TryGetEntryType(a, out var entryType)||assembly.IsModAssembly||(!mod.isFromJSON&&Path.GetFullPath(assembly.Path)!=Path.GetFullPath(mod.entryFile))) continue;
+                        if (!TryGetEntryType(a, out var entryType) || assembly.IsModAssembly || (!mod.isFromJSON && Path.GetFullPath(assembly.Path) != Path.GetFullPath(mod.entryFile))) continue;
                         assembly.IsModAssembly = true;
                         var newMod = AddMod(assembly.mod, entryType);
                         HarmonyOverrideHandler.LoadOverrides(entryType.Module);
@@ -128,7 +123,7 @@ namespace SRML
 
                     throw new EntryPointNotFoundException($"Could not find assembly for mod '{mod}'");
 
-                    foundmod:
+                foundmod:
                     continue;
                 }
             }
@@ -137,7 +132,7 @@ namespace SRML
                 AppDomain.CurrentDomain.AssemblyResolve -= FindAssembly;
             }
         }
-        
+
         /// <summary>
         /// Get an <see cref="SRMod"/> instance from a Mod ID
         /// </summary>
@@ -145,7 +140,7 @@ namespace SRML
         /// <returns>The corresponding <see cref="SRMod"/> instance, or null</returns>
         internal static SRMod GetMod(string id)
         {
-            return Mods.TryGetValue(id,out var mod)?mod:null;
+            return Mods.TryGetValue(id, out var mod) ? mod : null;
         }
 
         internal static SRMod GetModForAssembly(Assembly a)
@@ -196,7 +191,7 @@ namespace SRML
                 }
             }
         }
-        
+
         internal static void LoadMods()
         {
             CurrentLoadingStep = LoadingStep.LOAD;
@@ -335,7 +330,7 @@ namespace SRML
             public String Path;
             public ProtoMod mod;
             public bool IsModAssembly;
-            public AssemblyInfo(AssemblyName name, String path,ProtoMod mod)
+            public AssemblyInfo(AssemblyName name, String path, ProtoMod mod)
             {
                 AssemblyName = name;
                 Path = path;
@@ -421,7 +416,7 @@ namespace SRML
             /// <param name="dllFile">Path to the DLL file to process</param>
             /// <param name="mod">The parsed <see cref="ProtoMod"/>, or null</param>
             /// <returns>Whether the parsing was successful</returns>
-            public static bool TryParseFromDLL(String dllFile,out ProtoMod mod)
+            public static bool TryParseFromDLL(String dllFile, out ProtoMod mod)
             {
                 var assembly = Assembly.LoadFile(dllFile);
                 mod = new ProtoMod();

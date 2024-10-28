@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace SRML.Editor.Runtime
 {
     public class FieldReplacement : IFieldReplacement
     {
-        private FieldInfo source;
-        private FieldInfo target;
+        private readonly FieldInfo source;
+        private readonly FieldInfo target;
         public bool TryResolveSource(out FieldInfo field)
         {
             field = source;
@@ -28,7 +25,7 @@ namespace SRML.Editor.Runtime
             this.source = source;
         }
 
-        public FieldReplacement(string targetType, string targetField, string sourceType,string sourceField) : this(Type.GetType(targetType+", Assembly-CSharp").GetField(targetField), Type.GetType(sourceType + ", Assembly-CSharp").GetField(sourceField)) { }
+        public FieldReplacement(string targetType, string targetField, string sourceType, string sourceField) : this(Type.GetType(targetType + ", Assembly-CSharp").GetField(targetField), Type.GetType(sourceType + ", Assembly-CSharp").GetField(sourceField)) { }
 
         public FieldReplacement(string targetType, string targetField) : this(targetType, targetField, targetType,
             targetField)

@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace SRML.Editor.Runtime
 {
     public class FieldReplacer : IFieldReplacer
     {
         public IInstanceInfo InstanceInfo { get; private set; }
-    
+
 
         public bool ReplaceInChildren { get; private set; }
 
-        List<IFieldReplacement> replacements = new List<IFieldReplacement>();
+        readonly List<IFieldReplacement> replacements = new List<IFieldReplacement>();
 
         public ICollection<IFieldReplacement> FieldReplacements => replacements;
 

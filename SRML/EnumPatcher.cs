@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using UnityEngine;
-using System.Reflection;
-using HarmonyLib;
+﻿using HarmonyLib;
 using SRML.SR;
 using SRML.Utils;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Reflection;
 
 namespace SRML
 {
@@ -38,9 +35,9 @@ namespace SRML
             BANNED_ENUMS.Add(type, del);
         }
 
-        private static FieldInfo cache;
-        
-        private static Dictionary<Type, EnumPatch> patches = new Dictionary<Type, EnumPatch>();
+        private static readonly FieldInfo cache;
+
+        private static readonly Dictionary<Type, EnumPatch> patches = new Dictionary<Type, EnumPatch>();
 
         static EnumPatcher()
         {
@@ -162,7 +159,7 @@ namespace SRML
                     if (vals.GetValue(l).Equals(v))
                         goto skip;
                 return v;
-                skip:;
+            skip:;
             }
             for (long i = -1; i >= long.MinValue; i--)
             {
@@ -172,7 +169,7 @@ namespace SRML
                     if (vals.GetValue(l).Equals(v))
                         goto skip;
                 return v;
-                skip:;
+            skip:;
             }
             throw new Exception("No unused values in enum " + enumType.FullName);
         }
@@ -181,7 +178,7 @@ namespace SRML
         {
             cache.SetValue(enumType, null);
         }
-        
+
         internal static bool TryGetRawPatch(Type enumType, out EnumPatch patch)
         {
             return patches.TryGetValue(enumType, out patch);
@@ -194,9 +191,9 @@ namespace SRML
             return false;
         }
 
-        public class EnumPatch 
+        public class EnumPatch
         {
-            private Dictionary<ulong, List<string>> values = new Dictionary<ulong, List<string>>();
+            private readonly Dictionary<ulong, List<string>> values = new Dictionary<ulong, List<string>>();
 
             public void AddValue(ulong enumValue, string name)
             {
@@ -229,4 +226,3 @@ namespace SRML
         }
     }
 }
-    

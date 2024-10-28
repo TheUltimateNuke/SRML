@@ -1,10 +1,10 @@
-﻿using System;
+﻿using SRML.SR.Utils.Debug;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using UnityEngine.SceneManagement;
-using UnityEngine;
 using System.Text.RegularExpressions;
-using SRML.SR.Utils.Debug;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace SRML.Console
 {
@@ -21,8 +21,8 @@ namespace SRML.Console
         internal static string unityLogFile = Path.Combine(Main.StorageProvider.SavePath(), "Player.log");
         internal static string srmlLogFile = Path.Combine(Main.StorageProvider.SavePath(), "SRML/srml.log");
         internal static readonly Console console = new Console();
-        private static ConsoleInstance srmlInstance = new ConsoleInstance("SRML");
-        private static ConsoleInstance unityInstance = new ConsoleInstance("Unity");
+        private static readonly ConsoleInstance srmlInstance = new ConsoleInstance("SRML");
+        private static readonly ConsoleInstance unityInstance = new ConsoleInstance("Unity");
         public static ConsoleInstance Instance { get { return srmlInstance; } }
 
         // COMMAND STUFF
@@ -311,7 +311,7 @@ namespace SRML.Console
 
             if (lines.Count >= MAX_ENTRIES)
                 lines.RemoveRange(0, 10);
-            
+
             lines.Add($"<color=cyan>[{DateTime.Now.ToString("HH:mm:ss")}]</color> <color=lime>[{name}]</color> <color={color}>[{type}] {Regex.Replace(message, @"<material[^>]*>|<\/material>|<size[^>]*>|<\/size>|<quad[^>]*>|<b>|<\/b>", "")}</color>");
 
             if (logToFile)

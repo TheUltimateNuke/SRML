@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using HarmonyLib;
+﻿using HarmonyLib;
 using SRML.Config;
 using SRML.Utils;
+using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace SRML
 {
@@ -62,13 +59,13 @@ namespace SRML
             {
                 string[] splits = s.Split('.');
                 if (splits.Length < 2 || splits.Length > 3) goto uhoh;
-                if (!Int32.TryParse(splits[0], out int major)|| !Int32.TryParse(splits[1], out int minor)) goto uhoh;
+                if (!Int32.TryParse(splits[0], out int major) || !Int32.TryParse(splits[1], out int minor)) goto uhoh;
                 int revision = 0;
                 if (splits.Length == 3 && !Int32.TryParse(splits[2], out revision)) goto uhoh;
 
                 return new ModVersion(major, minor, revision);
 
-                uhoh:
+            uhoh:
                 throw new Exception($"Invalid Version String: {s}");
             }
 
@@ -87,7 +84,7 @@ namespace SRML
     /// <summary>
     /// Actual internal implementation of a mod
     /// </summary>
-    internal class SRMod 
+    internal class SRMod
     {
         /// <summary>
         /// Mods associated SRModInfo object
@@ -102,9 +99,9 @@ namespace SRML
         public Type EntryType { get; private set; }
         private Harmony _harmonyInstance;
 
-        private IModEntryPoint entryPoint;
-        private ModEntryPoint entryPoint2;
-        private bool useNewEntry = false;
+        private readonly IModEntryPoint entryPoint;
+        private readonly ModEntryPoint entryPoint2;
+        private readonly bool useNewEntry = false;
 
         private static SRMod forcedContext;
 
@@ -204,7 +201,7 @@ namespace SRML
             if (useNewEntry)
                 entryPoint2.FixedUpdate();
         }
-        
+
         public void LateUpdate()
         {
             if (useNewEntry)

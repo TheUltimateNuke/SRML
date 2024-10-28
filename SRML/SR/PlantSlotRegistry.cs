@@ -2,17 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SRML.SR
 {
-    public  static class PlantSlotRegistry
+    public static class PlantSlotRegistry
     {
         public delegate void GardenPatchDelegate(GardenCatcher catcher);
         internal static List<GardenPatchDelegate> patchers = new List<GardenPatchDelegate>();
 
         internal static void Patch(GardenCatcher catcher) => patchers.ForEach(x => x(catcher));
-        
+
         /// <summary>
         /// Registers an event to be run when a <see cref="GardenCatcher"/> awakes.
         /// </summary>
@@ -36,6 +35,6 @@ namespace SRML.SR
         /// <param name="condition">The condition that the link is established.</param>
         /// <param name="slot">The entry of the link.</param>
         public static void RegisterPlantSlotFor(Predicate<GardenCatcher> condition, GardenCatcher.PlantSlot slot) =>
-            RegisterGardenCatcherPatcher(x => {if (condition(x)) x.plantable = x.plantable.Where(y => y.id != slot.id).ToArray().AddToArray(slot); });
+            RegisterGardenCatcherPatcher(x => { if (condition(x)) x.plantable = x.plantable.Where(y => y.id != slot.id).ToArray().AddToArray(slot); });
     }
 }

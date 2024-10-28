@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using UnityEngine;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using SRML;
-using HarmonyLib;
-using SRML.Utils;
+﻿using SRML;
 using SRML.SR;
+using System.Reflection;
+using UnityEngine;
 
 namespace SampleMod
 {
@@ -27,10 +20,10 @@ namespace SampleMod
             // in this case it spawns a mosaic boom largo
             SRCallbacks.OnSaveGameLoaded += (scenecontext) =>
             {
-                   
+
                 var playerModel = SceneContext.Instance.GameModel.GetPlayerModel();
                 SRBehaviour.InstantiateActor(
-                    GameContext.Instance.LookupDirector.GetPrefab(Identifiable.Id.MOSAIC_BOOM_LARGO),MonomiPark.SlimeRancher.Regions.RegionRegistry.RegionSetId.UNSET,playerModel.position,
+                    GameContext.Instance.LookupDirector.GetPrefab(Identifiable.Id.MOSAIC_BOOM_LARGO), MonomiPark.SlimeRancher.Regions.RegionRegistry.RegionSetId.UNSET, playerModel.position,
                     playerModel.rotation);
             };
         }
@@ -40,7 +33,7 @@ namespace SampleMod
         // Used to register stuff that needs lookupdirector access
         public override void Load()
         {
-            
+
         }
 
 

@@ -1,8 +1,6 @@
 ﻿using SRML.SR.SaveSystem;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace SRML.SR
 {
@@ -42,7 +40,7 @@ namespace SRML.SR
         {
             if (SRModLoader.CurrentLoadingStep > SRModLoader.LoadingStep.PRELOAD)
                 throw new Exception("Can't register gadgets outside of the PreLoad step");
-            return moddedGadgets.RegisterValueWithEnum((Gadget.Id) value, name);
+            return moddedGadgets.RegisterValueWithEnum((Gadget.Id)value, name);
         }
 
         /// <summary>

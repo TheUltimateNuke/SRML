@@ -280,7 +280,7 @@ public static class TypeExtensions
             return false;
         for (int index = 0; index < types.Length; ++index)
         {
-            if (types[index] == (Type)null)
+            if (types[index] == null)
                 throw new ArgumentNullException(nameof(types));
             if (parameters[index].ParameterType != types[index])
                 return false;

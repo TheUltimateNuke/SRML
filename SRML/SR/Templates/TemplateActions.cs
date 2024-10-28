@@ -6,7 +6,7 @@ namespace SRML.SR.Templates
 {
     public static class TemplateActions
     {
-        internal readonly static Dictionary<string, Action<GameObject>> actions = new Dictionary<string, Action<GameObject>>();
+        internal static readonly Dictionary<string, Action<GameObject>> actions = new Dictionary<string, Action<GameObject>>();
 
         public static void RegisterAction(string ID, Action<GameObject> action)
         {

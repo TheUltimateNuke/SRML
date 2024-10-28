@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using SRML.SR.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
@@ -23,19 +24,30 @@ namespace SRML.SR.Patches
                     break;
                 }
             }
-            int index2 = instructions.IndexOf(instructions.First(x => x.opcode == OpCodes.Blt_S));
 
-            if (index1 != -1 && index2 != -2)
+            try
             {
-                instructions.RemoveRange(index1, index2 - index1 + 1);
-                instructions.InsertRange(index1, new List<CodeInstruction>()
+                int index2 = instructions.IndexOf(instructions.First(x => x.opcode == OpCodes.Blt_S));
+
+                if (index1 != -1 && index2 != -2)
                 {
-                    new CodeInstruction(OpCodes.Ldarg_0),
-                    new CodeInstruction(OpCodes.Ldloc_1),
-                    new CodeInstruction(OpCodes.Callvirt, AccessTools.Method(typeof(CorporatePartnerRebuildDynamicPatch), "RefreshRewardsFancily"))
-                });
+                    instructions.RemoveRange(index1, index2 - index1 + 1);
+                    instructions.InsertRange(index1, new List<CodeInstruction>()
+                        {
+                            new CodeInstruction(OpCodes.Ldarg_0),
+                            new CodeInstruction(OpCodes.Ldloc_1),
+                            new CodeInstruction(OpCodes.Callvirt, AccessTools.Method(typeof(CorporatePartnerRebuildDynamicPatch), "RefreshRewardsFancily"))
+                        });
+                }
+
             }
-            
+            catch (InvalidOperationException ex)
+            {
+                Debug.LogWarning(ex);
+                return instructions;
+            }
+
+
             return instructions;
         }
 

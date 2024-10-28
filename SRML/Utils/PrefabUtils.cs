@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using UnityEngine;
 
 namespace SRML.Utils
@@ -21,7 +20,7 @@ namespace SRML.Utils
                     {
                         T t = (T)field.GetValue(comp);
                         if (!t.Equals(original)) continue;
-                        field.SetValue(comp,newValue);
+                        field.SetValue(comp, newValue);
                     }
                 }
             }
@@ -46,7 +45,7 @@ namespace SRML.Utils
                 System.Object ProcessObject(System.Object theObj)
                 {
                     if (theObj == null) return null;
-                    
+
                     if (typeof(Component).IsAssignableFrom(theObj.GetType()) || typeof(GameObject).IsAssignableFrom(theObj.GetType()))
                     {
                         return theObj;
@@ -63,22 +62,22 @@ namespace SRML.Utils
                         {
                             g.SetValue(ProcessObject(g.GetValue(i)), i);
                         }
-                        
+
                     }
-                    else if (!theObj.GetType().IsPrimitive&&!typeof(String).IsAssignableFrom(theObj.GetType())&&!theObj.GetType().IsEnum)
+                    else if (!theObj.GetType().IsPrimitive && !typeof(String).IsAssignableFrom(theObj.GetType()) && !theObj.GetType().IsEnum)
                     {
-                        foreach(var v in theObj.GetType().GetFields(System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.Public))
+                        foreach (var v in theObj.GetType().GetFields(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public))
                         {
                             v.SetValue(theObj, ProcessObject(v.GetValue(theObj)));
                         }
                     }
-                    
+
                     return theObj;
                 }
 
                 foreach (var v in newObj.GetType().GetFields())
                 {
-                    v.SetValue(newObj,ProcessObject(v.GetValue(newObj)));
+                    v.SetValue(newObj, ProcessObject(v.GetValue(newObj)));
                 }
                 return newObj;
             }

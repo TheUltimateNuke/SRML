@@ -64,8 +64,8 @@ namespace SRML.SR
             if (refreshEatMaps)
             {
                 definition.Diet.RefreshEatMap(definitions, definition);
-                if (definition.BaseSlimes != null) 
-                    foreach (SlimeDefinition child in definition.BaseSlimes) 
+                if (definition.BaseSlimes != null)
+                    foreach (SlimeDefinition child in definition.BaseSlimes)
                         child.Diet.RefreshEatMap(definitions, child);
             }
         }
@@ -374,9 +374,9 @@ namespace SRML.SR
 
         internal static void ReplaceRecolorStructureMats(bool replace, bool recolor, SlimeAppearanceStructure structure, SlimeAppearanceStructure reference)
         {
-            if (replace && !structure.DefaultMaterials.Any(x => dontReplaceMats.Contains(x.name))) 
+            if (replace && !structure.DefaultMaterials.Any(x => dontReplaceMats.Contains(x.name)))
                 structure.DefaultMaterials = structure.DefaultMaterials.DuplicateMats(reference.DefaultMaterials);
-            else 
+            else
                 structure.DefaultMaterials = structure.DefaultMaterials.DuplicateMats();
 
             if (recolor)

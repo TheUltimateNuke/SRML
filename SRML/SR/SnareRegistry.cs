@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace SRML.SR
 {
@@ -16,7 +12,7 @@ namespace SRML.SR
         /// <param name="id">The <see cref="Identifiable.Id"/> to register.</param>
         public static void RegisterAsSnareable(this Identifiable.Id id)
         {
-            if (!snareables.Contains(id)) 
+            if (!snareables.Contains(id))
                 snareables.Add(id);
         }
     }

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Newtonsoft.Json.Converters;
-using SRML.SR.SaveSystem.Data.Partial;
 using UnityEngine;
 
 namespace SRML.SR
@@ -16,11 +12,11 @@ namespace SRML.SR
 
         internal static Dictionary<string, Dictionary<string, string>> doneDictionaries = new Dictionary<string, Dictionary<string, string>>();
 
-        internal static Dictionary<string, Dictionary<string,string>> patches = new Dictionary<string, Dictionary<string, string>>();
+        internal static Dictionary<string, Dictionary<string, string>> patches = new Dictionary<string, Dictionary<string, string>>();
 
         internal static Dictionary<MessageDirector.Lang, KeyValuePair<string, string>> srmlErrorMessages = new Dictionary<MessageDirector.Lang, KeyValuePair<string, string>>();
 
-        internal static Dictionary<KeyValuePair<string,string>,SRMod> keyToMod = new Dictionary<KeyValuePair<string, string>,SRMod>();
+        internal static Dictionary<KeyValuePair<string, string>, SRMod> keyToMod = new Dictionary<KeyValuePair<string, string>, SRMod>();
 
         internal static void SetModForTranslationKey(string bundlename, string key, SRMod mod) => keyToMod[new KeyValuePair<string, string>(bundlename, key)] = mod;
 
@@ -109,7 +105,7 @@ namespace SRML.SR
 
             if (!patches.ContainsKey(bundleName))
             {
-                patches.Add(bundleName, new Dictionary<string,string>());
+                patches.Add(bundleName, new Dictionary<string, string>());
             }
 
             return patches[bundleName];
@@ -123,13 +119,13 @@ namespace SRML.SR
                 return output.TryGetValue(key, out var list) ? list : output[key] = new List<string>();
             }
 
-            foreach(var pair in keyToMod.Where((x)=>x.Value==mod).Select((x)=>x.Key)) GetListForKey(pair.Key).Add(pair.Value);
-            
+            foreach (var pair in keyToMod.Where((x) => x.Value == mod).Select((x) => x.Key)) GetListForKey(pair.Key).Add(pair.Value);
+
             return output;
         }
 
-        static internal SRMod GetModForKey(string bundlename, string key) => GetModForKey(new KeyValuePair<string, string>(bundlename, key));
+        internal static SRMod GetModForKey(string bundlename, string key) => GetModForKey(new KeyValuePair<string, string>(bundlename, key));
 
-        static internal SRMod GetModForKey(KeyValuePair<string,string> pair) => keyToMod.TryGetValue(pair, out var value) ? value : null;
+        internal static SRMod GetModForKey(KeyValuePair<string, string> pair) => keyToMod.TryGetValue(pair, out var value) ? value : null;
     }
 }

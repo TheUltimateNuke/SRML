@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace SRML.SR
 {
@@ -21,7 +19,7 @@ namespace SRML.SR
         /// </summary>
         /// <param name="plortid">The <see cref="Identifiable.Id"/> belonging to the plort.</param>
         /// <param name="progressRequired">The progress required to show the plort as unlocked.</param>
-        public static void AddPlortEntry(Identifiable.Id plortid, ProgressDirector.ProgressType[] progressRequired) => 
+        public static void AddPlortEntry(Identifiable.Id plortid, ProgressDirector.ProgressType[] progressRequired) =>
             AddPlortEntry(new MarketUI.PlortEntry() { id = plortid, toUnlock = progressRequired });
 
         /// <summary>
@@ -80,7 +78,7 @@ namespace SRML.SR
         public static void RegisterPlort(Identifiable.Id id, float value, float fullSaturationValue)
         {
             AddPlortEntry(id);
-            AddEconomyEntry(id,value,fullSaturationValue);
+            AddEconomyEntry(id, value, fullSaturationValue);
         }
     }
 }

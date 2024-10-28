@@ -1,10 +1,8 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace SRMLInstaller
 {
@@ -16,7 +14,7 @@ namespace SRMLInstaller
 
         private const String gameNameWithSpace = "Slime Rancher";
 
-        private static String dataFolder = gameName + "_Data";
+        private static readonly String dataFolder = gameName + "_Data";
 
         private const String epicPath = "C:/Program Files/Epic Games/";
 
@@ -28,7 +26,7 @@ namespace SRMLInstaller
 
         private const String drmfree32 = "C:/Program Files (x86)/";
 
-        private static String exeToDLL = Path.Combine(dataFolder, Path.Combine("Managed", gameDLL));
+        private static readonly String exeToDLL = Path.Combine(dataFolder, Path.Combine("Managed", gameDLL));
 
         private const string GameExe = "SlimeRancher.exe";
 
@@ -39,7 +37,7 @@ namespace SRMLInstaller
         }
 
         public static String FindGame()
-        { 
+        {
             if (File.Exists(gameDLL) && CheckForValidDllPath(Path.GetFullPath(gameDLL))) return Path.GetFullPath(gameDLL);
             var managedDLL = Path.Combine("Managed", gameDLL);
             if (File.Exists(managedDLL))
@@ -55,9 +53,9 @@ namespace SRMLInstaller
 
             void AddIfCandidate(String path)
             {
-                if(CheckPathForGame(path,gameName))
-                    candidates.Add(Path.Combine(path,gameName));
-                if (CheckPathForGame(path,gameNameWithSpace))
+                if (CheckPathForGame(path, gameName))
+                    candidates.Add(Path.Combine(path, gameName));
+                if (CheckPathForGame(path, gameNameWithSpace))
                     candidates.Add(Path.Combine(path, gameNameWithSpace));
             }
             AddIfCandidate(epicPath);
@@ -80,19 +78,19 @@ namespace SRMLInstaller
             return p;
         }
 
-        static bool CheckPathForGame(String path,string gameName)
+        static bool CheckPathForGame(String path, string gameName)
         {
             return (File.Exists(Path.Combine(path, gameName, exeToDLL)));
         }
 
         static T SelectFromList<T>(List<T> elements)
         {
-            
+
             for (int i = 0; i < elements.Count; i++)
             {
-                Console.WriteLine($"{i+1} - {elements[i]}");
+                Console.WriteLine($"{i + 1} - {elements[i]}");
             }
-            restart:
+        restart:
             Console.Write($"Please select an option from 1 to {elements.Count}: ");
             if (Int32.TryParse(Console.ReadLine(), out int val) && val <= elements.Count && val >= 1)
                 return elements[val - 1];

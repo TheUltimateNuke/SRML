@@ -1,10 +1,7 @@
-﻿using System;
+﻿using SRML.Utils;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using SRML.Utils;
 
 public static class StringExtensions
 {
@@ -12,7 +9,7 @@ public static class StringExtensions
 
     public static string Pad(this int val, int numDigits)
     {
-        string str = string.Empty + (object)val;
+        string str = string.Empty + val;
         while (str.Length < numDigits)
             str = "0" + str;
         return str;

@@ -1,11 +1,6 @@
 ﻿using SRML.SR;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using UnityEngine;
-using SRML.SR.Utils;
 
 namespace SRML.Utils.Enum
 {
@@ -25,14 +20,14 @@ namespace SRML.Utils.Enum
                     {
                         if (!field.FieldType.IsEnum) continue;
 
-                        if ((int) field.GetValue(null) == 0)
+                        if ((int)field.GetValue(null) == 0)
                         {
                             var newVal = EnumPatcher.GetFirstFreeValue(field.FieldType);
                             EnumPatcher.AddEnumValueWithAlternatives(field.FieldType, newVal, field.Name);
                             field.SetValue(null, newVal);
                         }
                         else
-                        EnumPatcher.AddEnumValueWithAlternatives(field.FieldType, field.GetValue(null), field.Name);
+                            EnumPatcher.AddEnumValueWithAlternatives(field.FieldType, field.GetValue(null), field.Name);
 
                         if (field.FieldType == typeof(Identifiable.Id))
                         {
@@ -64,7 +59,7 @@ namespace SRML.Utils.Enum
                     }
                 }
             }
-            SRMod.ClearModContext();    
+            SRMod.ClearModContext();
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using SRML.Console;
+﻿using SRML.Console;
+using System.Collections.Generic;
 
 namespace SRML.SR.Utils.Debug
 {

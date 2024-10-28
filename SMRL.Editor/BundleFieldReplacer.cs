@@ -2,27 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using UnityEngine;
 
 namespace SRML.Editor
 {
     [CreateAssetMenu(menuName = "SRML/Replacers/FieldReplacer")]
-    public class BundleFieldReplacer : ScriptableObject,IFieldReplacer
+    public class BundleFieldReplacer : ScriptableObject, IFieldReplacer
     {
         [SerializeField]
         BundleInstanceInfo instanceInfo;
 
         public IInstanceInfo InstanceInfo => instanceInfo;
         [SerializeField]
-        bool replaceInChildren;
+        readonly bool replaceInChildren;
 
         public bool ReplaceInChildren => replaceInChildren;
 
         [SerializeField]
-        List<BundleFieldReplacement> fieldReplacements;// = new List<Replacement>();
+        readonly List<BundleFieldReplacement> fieldReplacements;// = new List<Replacement>();
 
-        public ICollection<IFieldReplacement> FieldReplacements => fieldReplacements.Select((x)=>(IFieldReplacement)x).ToList();
+        public ICollection<IFieldReplacement> FieldReplacements => fieldReplacements.Select((x) => (IFieldReplacement)x).ToList();
 
     }
 
@@ -57,13 +56,13 @@ namespace SRML.Editor
         }
         public bool TryResolveTarget(out FieldInfo field)
         {
-            return Resolve(fieldToReplaceType,fieldToReplaceFieldName,out field);
+            return Resolve(fieldToReplaceType, fieldToReplaceFieldName, out field);
         }
 
         private bool Resolve(String typeName, String fieldName, out FieldInfo field)
         {
-            
-            if (Type.GetType(typeName+", Assembly-CSharp") is System.Type type &&
+
+            if (Type.GetType(typeName + ", Assembly-CSharp") is System.Type type &&
                 type.GetField(fieldName) is FieldInfo foundField)
             {
                 field = foundField;

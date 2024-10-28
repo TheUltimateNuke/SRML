@@ -1,7 +1,5 @@
 ﻿using SRML.Config.Parsing;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 
 namespace SRML.Config
@@ -14,7 +12,7 @@ namespace SRML.Config
 
         public bool IsInRange(T val)
         {
-            return Expression.Lambda<Func<bool>>(Expression.GreaterThanOrEqual(Expression.Constant(val), Expression.Constant(Min))).Compile()()&& Expression.Lambda<Func<bool>>(Expression.LessThan(Expression.Constant(val), Expression.Constant(Max))).Compile()();
+            return Expression.Lambda<Func<bool>>(Expression.GreaterThanOrEqual(Expression.Constant(val), Expression.Constant(Min))).Compile()() && Expression.Lambda<Func<bool>>(Expression.LessThan(Expression.Constant(val), Expression.Constant(Max))).Compile()();
         }
 
         public static implicit operator T(Range<T> range) => range.Value;
@@ -53,7 +51,7 @@ namespace SRML.Config
         public class RangeParser<T> : IStringParser
         {
             public Type ParsedType => typeof(Range<T>);
-            Range<T> range;
+            readonly Range<T> range;
 
             public RangeParser(Range<T> range)
             {

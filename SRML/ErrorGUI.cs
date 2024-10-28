@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SRML.SR;
+﻿using SRML.SR;
 using SRML.SR.UI.Utils;
 using TMPro;
 using UnityEngine;
@@ -42,15 +38,15 @@ namespace SRML
                     rect2.anchorMax = new Vector2(1, 1);
                     rect2.offsetMax = new Vector2(-50, -100);
                     rect2.offsetMin = new Vector2(50, 30);
-                   
+
                 }
 
                 g.transform.SetParent(panel, false);
                 var rect = g.GetComponent<RectTransform>();
                 rect.anchorMin = new Vector2(0, 0);
-                rect.anchorMax = new Vector2(1,1);
+                rect.anchorMax = new Vector2(1, 1);
                 rect.offsetMax = new Vector2(-50, -100);
-                rect.offsetMin = new Vector2(50,30);
+                rect.offsetMin = new Vector2(50, 30);
             };
         }
     }

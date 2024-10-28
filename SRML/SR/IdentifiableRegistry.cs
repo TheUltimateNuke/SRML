@@ -1,9 +1,7 @@
-﻿using System;
+﻿using SRML.SR.SaveSystem;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using SRML.SR.Utils;
-using SRML.SR.SaveSystem;
-using UnityEngine;
 
 namespace SRML.SR
 {
@@ -136,7 +134,7 @@ namespace SRML.SR
                 else if (!IdentifiableCategorization.doNotAutoCategorize.Contains(id))
                     CategorizeId(id);
 
-                if (!FoodGroupRegistry.alreadyRegistered.Contains(id)) 
+                if (!FoodGroupRegistry.alreadyRegistered.Contains(id))
                     FoodGroupRegistry.RegisterToFoodGroup(id);
             }
         }
@@ -190,10 +188,10 @@ namespace SRML.SR
             }
             if (category == IdentifiableCategorization.Rule.NONE) return;
 
-            if ((category & (IdentifiableCategorization.Rule.VEGGIE | 
-                IdentifiableCategorization.Rule.FRUIT | 
-                IdentifiableCategorization.Rule.TOFU | 
-                IdentifiableCategorization.Rule.PLORT | 
+            if ((category & (IdentifiableCategorization.Rule.VEGGIE |
+                IdentifiableCategorization.Rule.FRUIT |
+                IdentifiableCategorization.Rule.TOFU |
+                IdentifiableCategorization.Rule.PLORT |
                 IdentifiableCategorization.Rule.MEAT |
                 IdentifiableCategorization.Rule.CHICK |
                 IdentifiableCategorization.Rule.CRAFT)) != 0) Identifiable.NON_SLIMES_CLASS.Add(id);

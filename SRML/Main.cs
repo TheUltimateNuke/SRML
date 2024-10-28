@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Security.Policy;
-using System.Text;
-using HarmonyLib;
-using MonomiPark.SlimeRancher.DataModel;
+﻿using HarmonyLib;
 using SRML.Config;
 using SRML.Console;
 using SRML.Editor;
@@ -15,13 +7,15 @@ using SRML.SR.UI;
 using SRML.SR.Utils;
 using SRML.SR.Utils.BaseObjects;
 using SRML.Utils;
+using System;
+using System.Reflection;
 using UnityEngine;
 
 namespace SRML
 {
     internal static class Main
     {
-        public const string VERSION_STRING = "0.2.1b";
+        public const string VERSION_STRING = "3.0.0";
 
         private static bool isPreInitialized;
         internal static Transform prefabParent;
@@ -32,7 +26,7 @@ namespace SRML
         /// <summary>
         /// Called before GameContext.Awake()
         /// </summary>
-        internal static void PreLoad() 
+        internal static void PreLoad()
         {
             if (isPreInitialized) return;
             isPreInitialized = true;
@@ -131,7 +125,7 @@ namespace SRML
 
             PostLoad();
         }
-        
+
         private static bool isPostInitialized;
 
         /// <summary>

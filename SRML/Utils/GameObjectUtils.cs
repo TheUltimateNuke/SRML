@@ -1,11 +1,9 @@
 ﻿using System;
-using System.CodeDom.Compiler;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using JetBrains.Annotations;
 using UnityEngine;
+
 namespace SRML.Utils
 {
     public static class GameObjectUtils
@@ -25,9 +23,9 @@ namespace SRML.Utils
             return builder.ToString();
         }
 
-        static void PrintObjectTreeInternal(GameObject obj,string indent, StringBuilder builder)
+        static void PrintObjectTreeInternal(GameObject obj, string indent, StringBuilder builder)
         {
-            builder.AppendLine(indent+"GameObject: " + obj.name);
+            builder.AppendLine(indent + "GameObject: " + obj.name);
             indent = indent + "    ";
             builder.AppendLine(indent + "components:");
             string indent2 = indent + "    ";
@@ -42,7 +40,7 @@ namespace SRML.Utils
                 Transform form = v as Transform;
                 if (form)
                 {
-                    builder.AppendLine(indent2 + v.GetType().Name + " " + form.localPosition+", "+form.localRotation+" "+form.localScale);
+                    builder.AppendLine(indent2 + v.GetType().Name + " " + form.localPosition + ", " + form.localRotation + " " + form.localScale);
                     continue;
                 }
                 builder.AppendLine(indent2 + v.GetType().Name);
@@ -59,7 +57,7 @@ namespace SRML.Utils
             }
 
             builder.AppendLine(indent + "children: ");
-           
+
             for (int i = 0; i < obj.transform.childCount; i++)
             {
                 PrintObjectTreeInternal(obj.transform.GetChild(i).gameObject, indent2, builder);

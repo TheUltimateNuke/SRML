@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SRML.Utils;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using SRML.Utils;
-using UnityEngine;
 
 namespace SRML
 {
@@ -56,7 +50,7 @@ namespace SRML
         /// <returns>The config path</returns>
         public static string GetMyConfigPath()
         {
-            return GetConfigPath(SRMod.GetCurrentMod());    
+            return GetConfigPath(SRMod.GetCurrentMod());
         }
     }
 }

@@ -1,12 +1,7 @@
 ﻿using MonomiPark.SlimeRancher.DataModel;
 using SRML.SR.SaveSystem;
-using SRML.SR.Translation;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using UnityEngine;
 
 namespace SRML.SR
 {
@@ -36,7 +31,7 @@ namespace SRML.SR
         {
             if (SRModLoader.CurrentLoadingStep > SRModLoader.LoadingStep.PRELOAD)
                 throw new Exception("Can't register upgrades outside of the PreLoad step");
-            return moddedUpgrades.RegisterValueWithEnum((PlayerState.Upgrade) value, name);
+            return moddedUpgrades.RegisterValueWithEnum((PlayerState.Upgrade)value, name);
         }
 
         /// <summary>

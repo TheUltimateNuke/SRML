@@ -1,12 +1,8 @@
-﻿using InControl;
-using MonomiPark.SlimeRancher;
+﻿using MonomiPark.SlimeRancher;
 using MonomiPark.SlimeRancher.Persist;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using UnityEngine;
 
 namespace SRML.SR.Options
 {
@@ -16,7 +12,7 @@ namespace SRML.SR.Options
 
         public static void Push(OptionsV11 options)
         {
-            foreach(var mod in new HashSet<SRMod>(BindingRegistry.moddedActions.Values))
+            foreach (var mod in new HashSet<SRMod>(BindingRegistry.moddedActions.Values))
             {
                 var filename = Path.Combine(FileSystem.GetConfigPath(mod), KEYBIND_FILE_NAME);
                 if (!File.Exists(filename)) continue;
@@ -36,7 +32,7 @@ namespace SRML.SR.Options
                 var filename = Path.Combine(FileSystem.GetConfigPath(mod), KEYBIND_FILE_NAME);
                 var modoptions = new ModOptionsV01();
                 var v = BindingRegistry.moddedActions.Where(x => x.Value == mod).Select(x => x.Key).ToList();
-                foreach(var action in v)
+                foreach (var action in v)
                 {
                     modoptions.bindings.bindings.Add(SRInput.ToBinding(action));
                 }

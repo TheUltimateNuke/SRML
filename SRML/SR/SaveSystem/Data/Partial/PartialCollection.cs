@@ -4,16 +4,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace SRML.SR.SaveSystem.Data.Partial
 {
     internal class PartialCollection<T> : PartialData<ICollection<T>>, IListProvider
     {
-        List<T> hoistedValues = new List<T>();
-        private Predicate<T> hoistCondition;
-        private SerializerPair<T> serializer;
-        private Predicate<T> forbiddenValueTester;
+        readonly List<T> hoistedValues = new List<T>();
+        private readonly Predicate<T> hoistCondition;
+        private readonly SerializerPair<T> serializer;
+        private readonly Predicate<T> forbiddenValueTester;
         public PartialCollection(Predicate<T> hoistCondition, SerializerPair<T> serializer, Predicate<T> valueFilter = null)
         {
             this.hoistCondition = hoistCondition;
@@ -29,29 +28,29 @@ namespace SRML.SR.SaveSystem.Data.Partial
 
             foreach (var v in data)
             {
-                if(hoistCondition(v)) hoistedValues.Add(v);
+                if (hoistCondition(v)) hoistedValues.Add(v);
             }
 
             foreach (var v in hoistedValues)
             {
                 data.Remove(v);
             }
-            hoistedValues.RemoveAll(x=>!forbiddenValueTester(x));
+            hoistedValues.RemoveAll(x => !forbiddenValueTester(x));
         }
 
         public override void Push(ICollection<T> data)
         {
-            foreach(var v in hoistedValues.Where(x=>forbiddenValueTester(x))) data.Add(v);
+            foreach (var v in hoistedValues.Where(x => forbiddenValueTester(x))) data.Add(v);
         }
 
         public override void Read(BinaryReader reader)
         {
-            BinaryUtils.ReadList(reader,hoistedValues,(x)=>(T)serializer.Deserialize(x));
+            BinaryUtils.ReadList(reader, hoistedValues, (x) => (T)serializer.Deserialize(x));
         }
 
         public override void Write(BinaryWriter writer)
         {
-            BinaryUtils.WriteList(writer,hoistedValues,(x,y)=>serializer.Serialize(x,y));
+            BinaryUtils.WriteList(writer, hoistedValues, (x, y) => serializer.Serialize(x, y));
         }
 
     }

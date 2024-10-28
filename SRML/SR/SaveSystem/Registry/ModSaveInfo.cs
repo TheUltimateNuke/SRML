@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using MonomiPark.SlimeRancher.DataModel;
+﻿using MonomiPark.SlimeRancher.DataModel;
 using SRML.SR.SaveSystem.Data;
 using SRML.SR.SaveSystem.Data.Actor;
 using SRML.SR.SaveSystem.Data.Gadget;
 using SRML.SR.SaveSystem.Data.LandPlot;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace SRML.SR.SaveSystem.Registry
@@ -15,9 +15,9 @@ namespace SRML.SR.SaveSystem.Registry
     public delegate void WorldDataSaveDelegate(CompoundDataPiece data);
     internal class ModSaveInfo
     {
-        DataRegistry<CustomActorData> CustomActorDataRegistry = new DataRegistry<CustomActorData>();
-        DataRegistry<CustomGadgetData> CustomGadgetDataRegistry = new DataRegistry<CustomGadgetData>();
-        DataRegistry<CustomLandPlotData> CustomLandPlotRegistry = new DataRegistry<CustomLandPlotData>();
+        readonly DataRegistry<CustomActorData> CustomActorDataRegistry = new DataRegistry<CustomActorData>();
+        readonly DataRegistry<CustomGadgetData> CustomGadgetDataRegistry = new DataRegistry<CustomGadgetData>();
+        readonly DataRegistry<CustomLandPlotData> CustomLandPlotRegistry = new DataRegistry<CustomLandPlotData>();
 
         public readonly HashSet<DataRegistry> Registries = new HashSet<DataRegistry>();
 
@@ -31,7 +31,7 @@ namespace SRML.SR.SaveSystem.Registry
             onExtendedActorDataLoaded?.Invoke(model, obj, piece);
         }
 
-        
+
 
         internal WorldDataPreLoadDelegate OnDataPreload;
         internal WorldDataLoadDelegate OnDataLoad;

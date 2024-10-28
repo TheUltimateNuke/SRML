@@ -10,7 +10,7 @@ namespace SRML.SR.Patches
     [HarmonyPatch(typeof(CorporatePartnerUI), "Awake")]
     internal static class CorporatePartnerUIAwakePatch
     {
-        private static CorporatePartnerUI.RankEntry genericEntry = new CorporatePartnerUI.RankEntry()
+        private static readonly CorporatePartnerUI.RankEntry genericEntry = new CorporatePartnerUI.RankEntry()
         {
             cost = 0,
             rewardIcons = new Sprite[0]

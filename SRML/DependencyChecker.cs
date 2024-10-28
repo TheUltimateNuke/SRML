@@ -1,12 +1,7 @@
-﻿using System;
+﻿using HarmonyLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
-using HarmonyLib;
-using SRML.Utils;
-using UnityEngine;
 
 namespace SRML
 {
@@ -32,19 +27,19 @@ namespace SRML
         {
             loadOrder.Clear();
             var modList = new List<SRModLoader.ProtoMod>();
-            
+
             HashSet<string> currentlyLoading = new HashSet<string>();
 
 
             void FixAfters(SRModLoader.ProtoMod mod)
             {
-                foreach(var h in mod.load_before)
+                foreach (var h in mod.load_before)
                 {
 
                     if (mods.FirstOrDefault((x) => x.id == h) is SRModLoader.ProtoMod proto)
                     {
                         proto.load_after = new HashSet<string>(proto.load_after.AddToArray(mod.id)).ToArray();
-                        
+
                     }
                 }
 
@@ -62,7 +57,7 @@ namespace SRML
                 foreach (var v in mod.load_after)
                 {
                     if (!(mods.FirstOrDefault((x) => x.id == v) is SRModLoader.ProtoMod proto)) continue;
-                    if (currentlyLoading.Contains(v)) throw new Exception("Circular dependency detected "+mod.id+" "+v);
+                    if (currentlyLoading.Contains(v)) throw new Exception("Circular dependency detected " + mod.id + " " + v);
                     LoadMod(proto);
                 }
 
@@ -71,7 +66,7 @@ namespace SRML
 
                 currentlyLoading.Remove(mod.id);
 
-                
+
             }
 
             foreach (var v in mods)
@@ -79,7 +74,7 @@ namespace SRML
                 LoadMod(v);
             }
 
-            loadOrder.AddRange(modList.Select((x)=>x.id));
+            loadOrder.AddRange(modList.Select((x) => x.id));
         }
 
         public static Dictionary<string, SRModInfo.ModVersion> ToDependencyDictionary(this Dependency[] dependencies)

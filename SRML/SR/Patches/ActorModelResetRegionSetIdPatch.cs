@@ -5,8 +5,8 @@ using UnityEngine;
 
 namespace SRML.SR.Patches
 {
-    [HarmonyPatch(typeof(ActorModel), MethodType.Constructor, 
-        new[] { typeof(long), typeof(Identifiable.Id), typeof(RegionRegistry.RegionSetId), typeof(Transform) } )]
+    [HarmonyPatch(typeof(ActorModel), MethodType.Constructor,
+        new[] { typeof(long), typeof(Identifiable.Id), typeof(RegionRegistry.RegionSetId), typeof(Transform) })]
     internal static class ActorModelResetRegionSetIdPatch
     {
         public static void Postfix(ActorModel __instance)

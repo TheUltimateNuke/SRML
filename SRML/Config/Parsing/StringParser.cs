@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace SRML.Config.Parsing
 {
@@ -11,8 +8,8 @@ namespace SRML.Config.Parsing
         public delegate string EncodeGenericDelegate(T obj);
         public delegate T ParseGenericDelegate(string str);
 
-        EncodeGenericDelegate encoder;
-        ParseGenericDelegate parser;
+        readonly EncodeGenericDelegate encoder;
+        readonly ParseGenericDelegate parser;
 
         public DelegateStringParser(EncodeGenericDelegate encoder, ParseGenericDelegate parser)
         {

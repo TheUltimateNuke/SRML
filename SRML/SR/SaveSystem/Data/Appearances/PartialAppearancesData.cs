@@ -1,21 +1,18 @@
-﻿using HarmonyLib;
-using MonomiPark.SlimeRancher.Persist;
+﻿using MonomiPark.SlimeRancher.Persist;
 using SRML.SR.SaveSystem.Data.Partial;
 using SRML.Utils;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using UnityEngine;
 using static SlimeAppearance;
 
 namespace SRML.SR.SaveSystem.Data.Appearances
 {
     class PartialAppearancesData : PartialData<AppearancesV01>
     {
-        static SerializerPair<AppearanceSaveSet> saveSetPair = SerializerPair.GetEnumSerializerPair<AppearanceSaveSet>();
-        static SerializerPair<Identifiable.Id> identifiablePair = SerializerPair.GetEnumSerializerPair<Identifiable.Id>();
-        PartialDictionary<Identifiable.Id, List<SlimeAppearance.AppearanceSaveSet>> unlocksCustom = new PartialDictionary<Identifiable.Id, List<AppearanceSaveSet>>((x) => ModdedIDRegistry.IsModdedID(x.Key), identifiablePair, new SerializerPair<List<AppearanceSaveSet>>((x, y) => BinaryUtils.WriteList(x, y, saveSetPair.SerializeGeneric), (x) =>
+        static readonly SerializerPair<AppearanceSaveSet> saveSetPair = SerializerPair.GetEnumSerializerPair<AppearanceSaveSet>();
+        static readonly SerializerPair<Identifiable.Id> identifiablePair = SerializerPair.GetEnumSerializerPair<Identifiable.Id>();
+        readonly PartialDictionary<Identifiable.Id, List<SlimeAppearance.AppearanceSaveSet>> unlocksCustom = new PartialDictionary<Identifiable.Id, List<AppearanceSaveSet>>((x) => ModdedIDRegistry.IsModdedID(x.Key), identifiablePair, new SerializerPair<List<AppearanceSaveSet>>((x, y) => BinaryUtils.WriteList(x, y, saveSetPair.SerializeGeneric), (x) =>
         {
             var list = new List<AppearanceSaveSet>();
             BinaryUtils.ReadList(x, list, saveSetPair.DeserializeGeneric);
@@ -24,9 +21,9 @@ namespace SRML.SR.SaveSystem.Data.Appearances
 
         }));
 
-        Dictionary<Identifiable.Id, PartialCollection<AppearanceSaveSet>> unlocksPartial = new Dictionary<Identifiable.Id, PartialCollection<AppearanceSaveSet>>();
+        readonly Dictionary<Identifiable.Id, PartialCollection<AppearanceSaveSet>> unlocksPartial = new Dictionary<Identifiable.Id, PartialCollection<AppearanceSaveSet>>();
 
-        PartialDictionary<Identifiable.Id, AppearanceSaveSet> selections = new PartialDictionary<Identifiable.Id, AppearanceSaveSet>(x => ModdedIDRegistry.IsModdedID(x.Key) || ModdedIDRegistry.IsModdedID(x.Value), identifiablePair, saveSetPair, (x) => ModdedIDRegistry.IsModdedID(x.Key)?null:new KeyValuePair<Identifiable.Id,AppearanceSaveSet>?(new KeyValuePair<Identifiable.Id, AppearanceSaveSet>(x.Key, AppearanceSaveSet.CLASSIC)));
+        readonly PartialDictionary<Identifiable.Id, AppearanceSaveSet> selections = new PartialDictionary<Identifiable.Id, AppearanceSaveSet>(x => ModdedIDRegistry.IsModdedID(x.Key) || ModdedIDRegistry.IsModdedID(x.Value), identifiablePair, saveSetPair, (x) => ModdedIDRegistry.IsModdedID(x.Key) ? null : new KeyValuePair<Identifiable.Id, AppearanceSaveSet>?(new KeyValuePair<Identifiable.Id, AppearanceSaveSet>(x.Key, AppearanceSaveSet.CLASSIC)));
 
         PartialCollection<AppearanceSaveSet> CreatePartialList()
         {
@@ -39,7 +36,7 @@ namespace SRML.SR.SaveSystem.Data.Appearances
             unlocksCustom.Pull(data.unlocks);
 
             unlocksPartial.Clear();
-            foreach(var v in data.unlocks)
+            foreach (var v in data.unlocks)
             {
                 if (v.Value.Any(ModdedIDRegistry.IsModdedID))
                 {
@@ -54,12 +51,12 @@ namespace SRML.SR.SaveSystem.Data.Appearances
 
         public override void Push(AppearancesV01 data)
         {
-            
+
             unlocksCustom.Push(data.unlocks);
 
 
 
-            foreach(var v in unlocksPartial)
+            foreach (var v in unlocksPartial)
             {
                 v.Value.Push(data.unlocks[v.Key]);
             }
@@ -79,7 +76,7 @@ namespace SRML.SR.SaveSystem.Data.Appearances
             unlocksCustom.Read(reader);
             unlocksPartial.Clear();
             int count = reader.ReadInt32();
-            for(int i = 0; i < count; i++)
+            for (int i = 0; i < count; i++)
             {
                 var create = CreatePartialList();
                 create.Read(reader);

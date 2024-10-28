@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Mono.Cecil;
+using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using Mono.Cecil;
 
 namespace SRMLInstaller
 {
@@ -35,7 +33,7 @@ namespace SRMLInstaller
                 bool alreadypatched = false;
                 bool didSrmlExist = File.Exists(srmlPath);
 
-                try_to_patch:
+            try_to_patch:
                 if (File.Exists(srmlPath))
                 {
                     var patcher = new Patcher(filename, GetOnLoad(srmlPath));
@@ -46,7 +44,7 @@ namespace SRMLInstaller
                         {
                             Console.Write($"Game is already patched! Would you like to uninstall? (selecting n will instead trigger an update) (y/n): ");
 
-                            poll_user:
+                        poll_user:
                             var response = Console.ReadLine();
                             if (response == "yes" || response == "y")
                             {
@@ -99,15 +97,15 @@ namespace SRMLInstaller
 
                 void SendFilesOver(bool canLog = true)
                 {
-                    foreach(var file in Directory.GetFiles(GetAlternateRoot()))
+                    foreach (var file in Directory.GetFiles(GetAlternateRoot()))
                         File.Delete(file);
-                    
+
                     foreach (var v in Assembly.GetExecutingAssembly().GetManifestResourceNames().Where((x) =>
                         x.Length > embeddedResourceProject.Length &&
                         x.Substring(0, embeddedResourceProject.Length) == embeddedResourceProject))
                     {
                         var file = v.Substring(embeddedResourcePath.Length);
-                        var combine = Path.Combine(file.Contains("SRML") ? root:GetAlternateRoot(), file);
+                        var combine = Path.Combine(file.Contains("SRML") ? root : GetAlternateRoot(), file);
                         //var libPath = Path.Combine(libFolder, file);
                         if (File.Exists(combine))
                         {
@@ -137,14 +135,14 @@ namespace SRMLInstaller
                 }
 
                 Console.WriteLine();
-                
+
                 string type = alreadypatched ? "Update" : "Installation";
-                string ending = alreadypatched? "" : $"(old assembly stored as { Path.GetFileNameWithoutExtension(filename)}_old.dll)";
+                string ending = alreadypatched ? "" : $"(old assembly stored as {Path.GetFileNameWithoutExtension(filename)}_old.dll)";
 
                 if (!uninstalling)
                 {
                     Console.WriteLine(
-                        $"{type} complete! "+ending);
+                        $"{type} complete! " + ending);
                     var modpath = Path.Combine(Directory.GetParent(root).Parent.FullName, "SRML", "Mods");
                     if (!Directory.Exists(modpath)) Directory.CreateDirectory(modpath);
                     Console.WriteLine($"Mods can be installed at {modpath}");
