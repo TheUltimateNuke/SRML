@@ -8,25 +8,25 @@ namespace SRMLInstaller
 {
     static class GameFinder
     {
-        private const String gameDLL = "Assembly-CSharp.dll";
+        private const string gameDLL = "Assembly-CSharp.dll";
 
-        private const String gameName = "SlimeRancher";
+        private const string gameName = "SlimeRancher";
 
-        private const String gameNameWithSpace = "Slime Rancher";
+        private const string gameNameWithSpace = "Slime Rancher";
 
-        private static readonly String dataFolder = gameName + "_Data";
+        private static readonly string dataFolder = gameName + "_Data";
 
-        private const String epicPath = "C:/Program Files/Epic Games/";
+        private const string epicPath = "C:/Program Files/Epic Games/";
 
-        private const String steamPath32 = "C:/Program Files (x86)/Steam/steamapps/common/";
+        private const string steamPath32 = "C:/Program Files (x86)/Steam/steamapps/common/";
 
-        private const String steamPath64 = "C:/Program Files/Steam/steamapps/common/";
+        private const string steamPath64 = "C:/Program Files/Steam/steamapps/common/";
 
-        private const String drmfree64 = "C:/Program Files/";
+        private const string drmfree64 = "C:/Program Files/";
 
-        private const String drmfree32 = "C:/Program Files (x86)/";
+        private const string drmfree32 = "C:/Program Files (x86)/";
 
-        private static readonly String exeToDLL = Path.Combine(dataFolder, Path.Combine("Managed", gameDLL));
+        private static readonly string exeToDLL = Path.Combine(dataFolder, Path.Combine("Managed", gameDLL));
 
         private const string GameExe = "SlimeRancher.exe";
 
@@ -36,7 +36,7 @@ namespace SRMLInstaller
             return parent.Name == "Managed" && parent.Parent.Parent.GetFiles().Any((x) => x.Name == GameExe);
         }
 
-        public static String FindGame()
+        public static string FindGame()
         {
             if (File.Exists(gameDLL) && CheckForValidDllPath(Path.GetFullPath(gameDLL))) return Path.GetFullPath(gameDLL);
             var managedDLL = Path.Combine("Managed", gameDLL);
@@ -49,9 +49,9 @@ namespace SRMLInstaller
 
             Console.WriteLine();
 
-            List<String> candidates = new List<String>();
+            List<string> candidates = new List<string>();
 
-            void AddIfCandidate(String path)
+            void AddIfCandidate(string path)
             {
                 if (CheckPathForGame(path, gameName))
                     candidates.Add(Path.Combine(path, gameName));
@@ -78,7 +78,7 @@ namespace SRMLInstaller
             return p;
         }
 
-        static bool CheckPathForGame(String path, string gameName)
+        static bool CheckPathForGame(string path, string gameName)
         {
             return (File.Exists(Path.Combine(path, gameName, exeToDLL)));
         }
@@ -92,7 +92,7 @@ namespace SRMLInstaller
             }
         restart:
             Console.Write($"Please select an option from 1 to {elements.Count}: ");
-            if (Int32.TryParse(Console.ReadLine(), out int val) && val <= elements.Count && val >= 1)
+            if (int.TryParse(Console.ReadLine(), out int val) && val <= elements.Count && val >= 1)
                 return elements[val - 1];
             goto restart;
         }

@@ -14,8 +14,8 @@ namespace SRMLInstaller
         private AssemblyDefinition curAssembly;
         private MethodDefinition target;
         private readonly MethodReference methodToPatchIn;
-        private readonly String filename;
-        public Patcher(String filename, MethodReference methodToPatchIn)
+        private readonly string filename;
+        public Patcher(string filename, MethodReference methodToPatchIn)
         {
             Init(filename);
             this.methodToPatchIn = methodToPatchIn;
@@ -78,7 +78,7 @@ namespace SRMLInstaller
             yield return eight;
             yield return proc.Create(OpCodes.Ldloc_1);
             yield return proc.Create(OpCodes.Ldelem_Ref);
-            yield return proc.Create(OpCodes.Call, def.ImportReference(typeof(Assembly).GetMethod("LoadFrom", BindingFlags.Public | BindingFlags.Static, Type.DefaultBinder, new Type[] { typeof(String) }, null)));
+            yield return proc.Create(OpCodes.Call, def.ImportReference(typeof(Assembly).GetMethod("LoadFrom", BindingFlags.Public | BindingFlags.Static, Type.DefaultBinder, new Type[] { typeof(string) }, null)));
             yield return proc.Create(OpCodes.Pop);
             yield return proc.Create(OpCodes.Ldloc_1);
             yield return proc.Create(OpCodes.Ldc_I4_1);
@@ -169,7 +169,7 @@ namespace SRMLInstaller
             RemoveOldPatch();
         }
 
-        bool CheckOrDelete(String path)
+        bool CheckOrDelete(string path)
         {
             if (!File.Exists(path)) return true;
             Console.Write($"Found {Path.GetFileName(path)} in target directory! Delete? (y/n): ");

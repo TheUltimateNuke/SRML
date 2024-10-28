@@ -8,9 +8,9 @@ namespace SRMLInstaller
 {
     class Program
     {
-        public const String SRML = "SRML.dll";
-        public const String embeddedResourcePath = "SRMLInstaller.Libs.";
-        public const String embeddedResourceProject = "SRMLInstaller.";
+        public const string SRML = "SRML.dll";
+        public const string embeddedResourcePath = "SRMLInstaller.Libs.";
+        public const string embeddedResourceProject = "SRMLInstaller.";
         static void Main(string[] args)
         {
             bool vortexMode = args.Length > 0 && args[0].StartsWith("-v");

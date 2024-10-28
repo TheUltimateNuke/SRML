@@ -159,9 +159,9 @@ namespace SRML
         {
             this.ModInfo = info;
             this.EntryType = entryPoint.GetType();
-            if (entryPoint is ModEntryPoint)
+            if (entryPoint is ModEntryPoint point)
             {
-                entryPoint2 = (ModEntryPoint)entryPoint;
+                entryPoint2 = point;
                 useNewEntry = true;
             }
             this.entryPoint = entryPoint;

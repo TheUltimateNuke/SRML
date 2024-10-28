@@ -70,17 +70,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Libs\0Harmony.dll" />
-    <EmbeddedResource Include="Libs\INIFileParser.dll" />
-    <EmbeddedResource Include="Libs\Newtonsoft.Json.dll" />
-    <EmbeddedResource Include="Libs\SRML.dll" />
-    <EmbeddedResource Include="Libs\SRML.Editor.dll" />
-    <EmbeddedResource Include="Libs\System.Runtime.Serialization.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Libs\SRML.xml" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.4.2.1\build\Fody.targets" Condition="Exists('..\packages\Fody.4.2.1\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -91,13 +80,7 @@
     <Error Condition="!Exists('..\packages\Costura.Fody.3.3.3\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.3.3.3\build\Costura.Fody.props'))" />
   </Target>
   <PropertyGroup>
-    <PreBuildEvent>mkdir "$(ProjectDir)Libs\"
-xcopy /Y "$(SolutionDir)SRML\bin\$(ConfigurationName)\SRML.dll" "$(ProjectDir)Libs\"
-xcopy /Y "$(SolutionDir)SRML\bin\$(ConfigurationName)\SRML.xml" "$(ProjectDir)Libs\"
-xcopy /Y "$(SolutionDir)SRML\bin\$(ConfigurationName)\Newtonsoft.Json.dll" "$(ProjectDir)Libs\"
-xcopy /Y "$(SolutionDir)SRML\bin\$(ConfigurationName)\0Harmony.dll" "$(ProjectDir)Libs\"
-xcopy /Y "$(SolutionDir)SRML\bin\$(ConfigurationName)\SRML.Editor.dll" "$(ProjectDir)Libs\"
-xcopy /Y "$(SolutionDir)SRML\bin\$(ConfigurationName)\INIFileParser.dll" "$(ProjectDir)Libs\"
-xcopy /Y "$(SolutionDir)SRML\bin\$(ConfigurationName)\System.Runtime.Serialization.dll" "$(ProjectDir)Libs\"</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
 </Project>
