@@ -19,9 +19,14 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="BepInEx.Core" Version="5.4.21" />
     <PackageReference Include="HarmonyX" Version="2.13.0" />
     <PackageReference Include="ini-parser" Version="2.5.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" Culture="neutral" PublicKeyToken="30ad4fe6b2a6aeed" processorArchitecture="MSIL" />
+    <PackageReference Include="UnityEngine.Modules" Version="2019.4.29">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    
     <Reference Include="../ref/**/*.dll" />
     <Reference Include="System.Runtime.Serialization" Version="4.0.0.0" Culture="neutral" PublicKeyToken="b77a5c561934e089" />
 
@@ -36,12 +41,6 @@
     <Reference Remove="../ref/SRML.Editor.dll" />
 
     <ProjectReference Include="..\SMRL.Editor\SRML.Editor.csproj" />
-
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" Culture="neutral" PublicKeyToken="30ad4fe6b2a6aeed" processorArchitecture="MSIL" />
-    <PackageReference Include="UnityEngine.Modules" Version="2019.4.29">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
   </ItemGroup>
   
   <ItemGroup>
@@ -60,7 +59,7 @@
     <Description>Mod Loader for the game Slime Rancher</Description>
     <Product>SRML</Product>
     <Copyright>Copyright ©  2019</Copyright>
-    <AssemblyVersion>0.2.1.0</AssemblyVersion>
-    <FileVersion>0.2.1.0</FileVersion>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
+    <FileVersion>3.0.0.0</FileVersion>
   </PropertyGroup>
 </Project>
